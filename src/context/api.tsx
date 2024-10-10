@@ -9,7 +9,7 @@ type APIContextType = {
   findUser: (user: string) => Promise<AxiosResponse<any>>;
   userContests: (user: string) => Promise<AxiosResponse<any>>;
   userCalendar: (user: string | undefined, year : string) => Promise<AxiosResponse<any>>;
-  userQusetions: (user: string | undefined) => Promise<AxiosResponse<any>>;
+  userQuestions: (user: string | undefined) => Promise<AxiosResponse<any>>;
   uid: string | null;
   setUid: Dispatch<SetStateAction<string | null>>
 };
@@ -18,7 +18,7 @@ const defaultValue: APIContextType = {
   findUser: async () => { throw new Error('Not define'); },
   userContests: async () => { throw new Error('Not define'); },
   userCalendar: async () => { throw new Error('Not define'); },
-  userQusetions: async () => { throw new Error('Not define'); },
+  userQuestions: async () => { throw new Error('Not define'); },
   uid : '',
   setUid: ()=>{}
 };
@@ -46,13 +46,13 @@ export function APIContextProvider({ children }: APIContextProviderProps) {
     const response = await axios.get(`${API}/userProfileCalendar?username=${user}&year=${year}`);
     return response;
   };
-  const userQusetions = async (user: string | undefined): Promise<AxiosResponse<any>> => {
+  const userQuestions = async (user: string | undefined): Promise<AxiosResponse<any>> => {
     const response = await axios.get(`${API}/${user}/solved`);
     return response;
   };
 
   return (
-    <APIContext.Provider value={{ findUser, uid, userContests, userCalendar, userQusetions, setUid}}>
+    <APIContext.Provider value={{ findUser, uid, userContests, userCalendar, userQuestions, setUid}}>
       {children}
     </APIContext.Provider>
   );
