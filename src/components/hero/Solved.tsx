@@ -40,7 +40,7 @@ export default function Solved() {
   if (!question) return <div>No question data available.</div>;
 
   return (
-    <div className="bg-gray-800 p-4 w-full flex justify-evenly">
+    <div className="BGGRAY p-4 w-full flex justify-evenly">
       <div className="FLEX flex-col bg-gray-900 text-yellow-50 rounded-md p-3">
         <span>{question.solvedProblem} / 3000</span>
         <span >All Problems</span>
@@ -51,7 +51,7 @@ export default function Solved() {
       </div>
       <div className="FLEX flex-col bg-gray-900 text-yellow-50 rounded-md p-3">
         <span>{question.mediumSolved} / 700</span>
-        <span className="text-orange-500">Medium</span>
+        <span className="text-orange-400">Medium</span>
       </div>
       <div className="FLEX flex-col bg-gray-900 text-yellow-50 rounded-md p-3">
         <span>{question.hardSolved} / 400</span>

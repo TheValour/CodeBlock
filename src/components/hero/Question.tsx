@@ -1,6 +1,7 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import { useContext, useEffect, useState } from 'react';
 import { APIContext } from '../../context/api';
+import { axisClasses } from '@mui/x-charts';
 
 export default function Question() {
     const { uid, userCalendar } = useContext(APIContext);
@@ -40,18 +41,54 @@ export default function Question() {
     }, [cal, value]);
 
     return (
-        <div className='flex justify-end'>
+        <div className='BGGRAY text-white flex justify-end'>
             {/* LineChart */}
             <LineChart
-                xAxis={[{ data: Array.from({ length: myData.length }, (_, i) => i+1 ) }]}
+                sx={(theme) => ({
+                    [`.${axisClasses.root}`]: {
+                        [`.${axisClasses.tick}, .${axisClasses.line}`]: {
+                          stroke: '#fff',
+                          strokeWidth: 2,
+                        },
+                        [`.${axisClasses.tickLabel}`]: {
+                          fill: '#fff',
+                        },
+                    },
+                    
+                    border: '4px solid red',
+                    ...theme.applyStyles('dark', {
+                        borderColor: 'rgba(255,255,255, 0.1)',
+                    }),
+                })}
+                xAxis={[
+                    {
+                        data: Array.from({ length: myData.length }, (_, i) => i + 1),
+                        label:"no. of days" ,
+                        labelStyle:{
+                            stroke: '#fff',
+                        },
+                        labelFontSize:13
+                    },
+                ]}
+                yAxis={[
+                    {
+                        min: 0,
+                        label: "no. of questions",
+                        labelStyle:{
+                            stroke: '#fff',
+                        },
+                        labelFontSize:13
+                    },
+                ]}
                 series={[{ data: myData }]}
-                yAxis={[{min:0}]}
-                width={600}
+                width={700}
                 height={300}
+                // colors={['white']}
             />
 
+
             {/* Dropdown */}
-            <select value={value} onChange={(e) => setValue(e.target.value)}>
+            <select value={value} onChange={(e) => setValue(e.target.value)} className='text-black'>
                 <option value="1">Week</option>
                 <option value="2">15 days</option>
                 <option value="3">Month</option>

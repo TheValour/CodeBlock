@@ -1,5 +1,15 @@
 .FLEX {
     display: flex;
     align-items: center;
+    background: #9dc6f6;
     justify-content: center;
+}
+.BGGRAY {
+    background-color: #14181e;
+}
+.BG_BLACK {
+    background-color: #0d1117;
+}
+.HEIGHT30{
+    height: 30%;
 }

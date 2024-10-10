@@ -1,5 +1,5 @@
+import Calendar from "./hero/Calendar"; 
 import Rating from "./hero/Rating";
-import Calendar from "./hero/Calendar";
 import Solved from "./hero/Solved";
 import Question from "./hero/Question";
 

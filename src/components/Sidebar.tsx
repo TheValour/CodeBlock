@@ -5,7 +5,7 @@ type SidebarProps = {
 
 export default function Sidebar({ user }: SidebarProps) {
   return (
-    <div className="h-screen bg-blue-300 w-1/5 FLEX flex-col">
+    <div className="h-screen bg-blue-400 w-1/5 FLEX flex-col">
       <div>
         <img src={user.avatar} alt={user.name} />
         <span className="block w-full text-center">{user.name}</span>
