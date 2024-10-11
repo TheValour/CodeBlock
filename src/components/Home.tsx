@@ -5,7 +5,7 @@ function Home() {
   const [user, setUser] = useState('');
 
   return (
-    <div className='w-screen h-screen bg-slate-300 FLEX'>
+    <div className='w-screen H90 bg-slate-300 FLEX'>
       <input type="text" 
         name="" id="" className='rounded-lg h-8 p-2' 
         value={user} 

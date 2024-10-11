@@ -1,15 +1,25 @@
+#APP {
+    width: 100vw;
+    height: 100vh;
+}
 .FLEX {
     display: flex;
     align-items: center;
-    background: #9dc6f6;
     justify-content: center;
 }
 .BGGRAY {
     background-color: #14181e;
+    /* background-color: rgb(23, 22, 22); */
 }
 .BG_BLACK {
     background-color: #0d1117;
 }
 .HEIGHT30{
-    height: 30%;
+    height: 27%;
+}
+.H10 {
+    height: 10%;
+}
+.H90 {
+    height: 90%;
 }

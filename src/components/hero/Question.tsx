@@ -44,7 +44,7 @@ export default function Question() {
         <div className='BGGRAY text-white flex justify-end'>
             {/* LineChart */}
             <LineChart
-                sx={(theme) => ({
+                sx={() => ({
                     [`.${axisClasses.root}`]: {
                         [`.${axisClasses.tick}, .${axisClasses.line}`]: {
                           stroke: '#fff',
@@ -55,10 +55,10 @@ export default function Question() {
                         },
                     },
                     
-                    border: '4px solid red',
-                    ...theme.applyStyles('dark', {
-                        borderColor: 'rgba(255,255,255, 0.1)',
-                    }),
+                    // border: '4px solid red',
+                    // ...theme.applyStyles('dark', {
+                    //     borderColor: 'rgba(255,255,255, 0.1)',
+                    // }),
                 })}
                 xAxis={[
                     {
@@ -83,12 +83,12 @@ export default function Question() {
                 series={[{ data: myData }]}
                 width={700}
                 height={300}
-                // colors={['white']}
+                colors={['blue']}
             />
 
 
             {/* Dropdown */}
-            <select value={value} onChange={(e) => setValue(e.target.value)} className='text-black'>
+            <select value={value} onChange={(e) => setValue(e.target.value)} className='text-black h-10 mt-16'>
                 <option value="1">Week</option>
                 <option value="2">15 days</option>
                 <option value="3">Month</option>
