@@ -24,7 +24,7 @@ export default function Rating() {
     if(!contest) return <></>;
 
   return (
-    <div className="BGGRAY p-4 w-full flex justify-evenly">
+    <div className="BGGRAY p-4 w-full flex justify-evenly rounded-xl">
       <div className="FLEX flex-col bg-gray-900 text-yellow-50 rounded-md p-3">
         <p className="text-orange-500">{contest.contestAttend}</p>
         <p className="text-sm">contest attend</p>

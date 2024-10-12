@@ -1,6 +1,8 @@
 #APP {
     width: 100vw;
     height: 100vh;
+    padding: 0;
+    margin: 0;
 }
 .FLEX {
     display: flex;
@@ -22,4 +24,7 @@
 }
 .H90 {
     height: 90%;
+}
+.MIN-85 {
+    min-width: 85%;
 }

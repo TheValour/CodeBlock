@@ -63,7 +63,7 @@ export default function Calendar() {
     if (!cal) return <div>Loading...</div>; 
 
     return (
-        <div className="BG_BLACK text-white flex justify-center items-start p-4 HEIGHT30 w-4/5">
+        <div className="BG_BLACK text-white flex justify-center items-start p-4 HEIGHT30 MIN-85">
             {dateVals.length > 0 ? (
                 <>
                     <ActivityCalendar

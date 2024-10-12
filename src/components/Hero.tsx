@@ -6,7 +6,7 @@ import Question from "./hero/Question";
 export default function Hero() {
   
   return (
-    <div className="h-screen BGGRAY w-11/12 flex flex-col items-center">
+    <div className="BGGRAY w-11/12 border my-12 rounded-xl flex flex-col items-center">
       <Rating/>
       <Calendar/>
       <Solved/>

@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import Hero from "./Hero";
 
 function Leetcode() {
+  // const navigate = useNavigate();
   const [user, setUser] = useState<User>({} as User);
   const {uid} = useParams();
   const  {findUser, setUid} = useContext(APIContext);
@@ -16,6 +17,11 @@ function Leetcode() {
       try {
         const res = await findUser(uid || ''); 
         setUser(res.data);
+
+        // if(res.status && res.data.name === "") {
+        //   navigate('/');
+        //   alert("Not found");
+        // }
       } catch (error) {
         console.error("Error fetching user:", error);
       }
@@ -25,9 +31,11 @@ function Leetcode() {
   }, [uid, findUser]);
 
   return (
-    <div className='w-screen h-screen bg-slate-300 flex'>
+    <div className='w-screen BGGRAY flex'>
       <Sidebar user={user}/>
-      <Hero />
+      <div className="BGGRAY w-11/12 FLEX p-2">
+        <Hero />
+      </div>
     </div>
   )
 }
