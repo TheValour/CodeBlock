@@ -11,7 +11,6 @@
 }
 .BGGRAY {
     background-color: #14181e;
-    /* background-color: rgb(23, 22, 22); */
 }
 .BG_BLACK {
     background-color: #0d1117;
@@ -27,4 +26,10 @@
 }
 .MIN-85 {
     min-width: 85%;
+}
+.label-class {
+    @apply block text-sm font-medium text-gray-600
+}
+.input-class {
+    @apply mt-1 p-2 w-full border rounded-md placeholder:text-slate-300
 }

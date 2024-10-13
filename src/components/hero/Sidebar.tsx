@@ -1,4 +1,5 @@
-import { User } from "../constant/type";
+import { User } from '../../constant/type'
+
 type SidebarProps = {
   user: User; 
 }

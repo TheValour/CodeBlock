@@ -2,15 +2,22 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
 import Leetcode from './components/Leetcode'
-import Navbar from './components/Navbar'
+import Navbar from './components/util/Navbar'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import Main from './components/room/Main'
 
 function App() {
   return (
     <div id='APP'>
-      <Navbar/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/user/:uid' element={<Leetcode/>}/>
+        <Route path='/' element={<Navbar/>}>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/main' element={<Main/>}/>
+          <Route path='/user/:uid' element={<Leetcode/>}/>
+        </Route>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/signup' element={<Register/>}/>
       </Routes>
     </div>
   )

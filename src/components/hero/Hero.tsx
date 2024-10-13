@@ -1,7 +1,7 @@
-import Calendar from "./hero/Calendar"; 
-import Rating from "./hero/Rating";
-import Solved from "./hero/Solved";
-import Question from "./hero/Question";
+import Calendar from "./Calendar"; 
+import Rating from "./Rating";
+import Solved from "./Solved";
+import Question from "./Question";
 
 export default function Hero() {
   

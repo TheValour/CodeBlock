@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { APIContext } from "../context/api";
 import { User } from "../constant/type";
-import Sidebar from "./Sidebar";
-import Hero from "./Hero";
+import Sidebar from "./hero/Sidebar";
+import Hero from "./hero/Hero";
 
 function Leetcode() {
   // const navigate = useNavigate();
@@ -18,10 +18,6 @@ function Leetcode() {
         const res = await findUser(uid || ''); 
         setUser(res.data);
 
-        // if(res.status && res.data.name === "") {
-        //   navigate('/');
-        //   alert("Not found");
-        // }
       } catch (error) {
         console.error("Error fetching user:", error);
       }
