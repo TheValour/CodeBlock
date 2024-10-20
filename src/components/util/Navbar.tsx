@@ -10,10 +10,10 @@ export default function Navbar() {
   return (
     <>
       <div className="H10 BG_BLACK border-b text-white flex justify-between p-12 box-border">
-          <div className="FLEX flex-col">
+          <Link className="FLEX flex-col" to='/'>
             <img src={IMG} alt="logo" className='size-10'/>
             <span>Codeblock</span>
-          </div>
+          </Link>
           <div>
             {user ? <Link to='/main'>{user.displayName}</Link> :<Link to='/login'>login</Link>}
             {user && <Link to='/' onClick={signOutUser} className='ml-6'>Logout</Link>}

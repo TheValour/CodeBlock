@@ -7,6 +7,7 @@ type User = {
     displayName: string | null;  
     photoURL: string | null;     
     email: string | null;
+    uid: string | null;
 };
 
 // Define the context type with the User type
@@ -50,12 +51,14 @@ export function AuthContextProvider({ children }: AUTHContextProviderProps) {
     const signIn = async (email: string, password: string) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const { displayName, photoURL, email: userEmail } = userCredential.user;
+            // console.log("hello", userCredential.user.uid)
+            const { displayName, photoURL, email: userEmail, uid } = userCredential.user;
             
             const newUser = {
                 displayName: displayName ?? "", 
                 photoURL: photoURL ?? "",       
-                email: userEmail
+                email: userEmail,
+                uid : uid
             };
             setUser(newUser);  
             // Persist user in localStorage
