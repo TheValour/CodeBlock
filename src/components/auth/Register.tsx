@@ -1,19 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {auth, storage} from './firebase.ts'
-
-import { v4 as uuidv4 } from 'uuid';
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUser] = useState<string>('');
   const [image, setImage] = useState<any | null>();
 
-
+  const handleError = (err : any) =>
+    toast.error(err, {
+      position: "top-right",
+  });
+  const handleSuccess = (msg : any) =>
+    toast.success(msg, {
+      position: "top-right",
+  });
 
   const handleSubmit = async (e : any) => {
     console.log(email, password);
@@ -29,11 +38,14 @@ const Register = () => {
         await updateProfile(auth.currentUser, {displayName: username, photoURL : url})
         const user = userCredential.user;
         console.log("User signed in:", user);
+        handleSuccess('User successfully register');
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       }
     } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("Error during sign-in:", errorCode, errorMessage, error);
+      handleError(error.code)
+      console.error("Error during sign-in:\n", error.code);
     }
   };
 
@@ -41,14 +53,14 @@ const Register = () => {
     <div className="w-full h-full FLEX bg-green-100">
       <div className="p-6 bg-gray-200 shadow-md rounded-md w-2/6 h-11/12">
         <h2 className="text-2xl font-semibold mb-4 text-center">Signup Account</h2>
-        <form onSubmit={handleSubmit} className="mt-8">
+        <form  className="mt-8">
           <div className="mb-4">
             <label htmlFor="email" className="label-class">
               Email
             </label>
             <input
               type="email"
-              name="email"
+              name="email"  autoComplete="current-email"
               value={email}
               placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
@@ -61,7 +73,7 @@ const Register = () => {
               Username
             </label>
             <input
-              type="text"
+              type="text" autoComplete="current-username"
               name="username"
               value={username}
               placeholder="Enter your username"
@@ -70,9 +82,16 @@ const Register = () => {
               required
             />
           </div>
-          <label>Image:</label><br/>
-        <input type="file" onChange={(e: any) => setImage(e.target.files[0])}
-          name="tags" className='w-4/5 bg-slate-200 p-2' required/><br/> 
+          <div className="mb-4">
+            <label htmlFor="image_input" className="label-class">Profile Image:</label>
+            <input type="file" autoComplete="current-image"
+              name="tags" id="image_input"
+              accept=".jpg, .jpeg, .png"
+              onChange={(e: any) => setImage(e.target.files[0])}
+              className='bg-slate-100 p-2 input-class' required
+            /><br/> 
+          </div>
+          
           <div className="mb-4">
             <label htmlFor="password" className="label-class">
               Password
@@ -84,11 +103,11 @@ const Register = () => {
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
               className="input-class"
-              required
+              required  autoComplete="current-password"
             />
           </div>
           <div className="mt-12">
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+            <button onClick={handleSubmit} className="bg-blue-500 text-white px-4 py-2 rounded-md">
               Submit
             </button>
             <span className="text-gray-600 ml-5 text-sm">
@@ -96,6 +115,7 @@ const Register = () => {
             </span>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );

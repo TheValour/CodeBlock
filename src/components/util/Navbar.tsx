@@ -14,9 +14,18 @@ export default function Navbar() {
             <img src={IMG} alt="logo" className='size-10'/>
             <span>Codeblock</span>
           </Link>
-          <div>
-            {user ? <Link to='/main'>{user.displayName}</Link> :<Link to='/login'>login</Link>}
-            {user && <Link to='/' onClick={signOutUser} className='ml-6'>Logout</Link>}
+          <div className='flex'>
+            {user && user.photoURL ? 
+              <div className='FLEX'>
+                <Link className="FLEX flex-col" to='/main'>
+                  <img src={user.photoURL} alt="logo" className="size-10 circle-img" />
+                  <span className='text-sm text-blue-400'>{user.displayName}</span>
+                </Link> 
+                <Link to='/' onClick={signOutUser} className='ml-6 text-red-400 p-1 rounded-md'>Logout</Link>
+              </div>
+              : 
+              <Link to='/login'>login</Link>
+            }
           </div>
       </div>
       <Outlet/>

@@ -1,25 +1,31 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.js";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const [userMail, setUserMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const {user, signIn} = useContext(AuthContext);
   const navigate = useNavigate();
+  
+  const handleError = (err : any) =>
+    toast.error(err, {
+      position: "top-right",
+  });
 
   const handleSubmit = async (e : any) => {
-    console.log(userMail, password);
     e.preventDefault();
+    console.log(userMail, password);
     try {
       await signIn(userMail, password);
       if(user) {
         navigate('/main');
       }      
     } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("Error during sign-in:", errorCode, errorMessage, error);
+      handleError("Incorrect email or password")
+      console.error("Error during sign-in:", error.code);
     }
   };
 
@@ -34,7 +40,7 @@ export default function Login() {
             </label>
             <input
               type="email"
-              name="email"
+              name="email"  autoComplete="current-email"
               value={userMail}
               placeholder="Enter your email"
               onChange={(e) => setUserMail(e.target.value)}
@@ -47,7 +53,7 @@ export default function Login() {
             </label>
             <input
               type="password"
-              name="password"
+              name="password" autoComplete="current-password"
               value={password}
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
@@ -63,6 +69,7 @@ export default function Login() {
             </span>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </div>
   )
