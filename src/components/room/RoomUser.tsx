@@ -1,8 +1,13 @@
-import React from 'react';
-import Friends from './Friends';
+import React, { useContext, useEffect, useState } from 'react';
+import AddFriends from './AddFriends';
+import { AuthContext } from '../../context/AuthContext';
+import {collection, DocumentData, getDocs} from 'firebase/firestore';
+import { db } from '../auth/firebase';
+import UserProfile from './UserProfile';
+import FriendList from './FriendList';
 
-interface RoomUserProps {
-  user: {
+type RoomUserProps = {
+  currUser: {
     name: string;
     ranking: string; 
     avatar: string; 
@@ -10,23 +15,44 @@ interface RoomUserProps {
   };
 }
 
-const RoomUser: React.FC<RoomUserProps> = ({ user }) => {
-    console.log(user)
+const RoomUser: React.FC<RoomUserProps> = ({ currUser }) => {
+  // console.log(user)
+  const [friendList, setFriendList] = useState<DocumentData[]>([]);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    async function loadFriends() {
+      try {
+        if (user && user.uid) {
+          const docRef = collection(db, "userfriend", user.uid, "friends"); // Reference to the collection
+          const querySnapshot = await getDocs(docRef);
+  
+          if (!querySnapshot.empty) {
+            const friends = querySnapshot.docs.map(doc => doc.data()); // Map through documents and get data
+            setFriendList(friends); // Set data in state as an array
+            console.log("list data friend : ", friendList);
+            console.log("Friends list:", friends);
+          } else {
+            console.log("No friends found!");
+            setFriendList([]); // Set an empty array if no friends are found
+          }
+        } else {
+          console.log("User is not defined or missing UID.");
+        }
+      } catch (e) {
+        console.error("Error fetching documents: ", e);
+        setFriendList([]); // In case of an error, ensure friendList is an empty array
+      }
+    }
+    loadFriends();
+  }, [user, db]);
+
   return (
-    <div className='flex'>
-        <div className="h-screen bg-blue-400 text-white w-1/5 FLEX flex-col">
-            <div>
-                <img src={user.avatar} alt={user.name} />
-                <span className="block w-full text-center font-bold text-xl">@ {user.name}</span>
-            </div>
-            <div>
-                <p className="w-full text-center text-blue-700 text-2xl">{user.ranking} </p>
-                <p className="w-full text-center ">Overall Rating</p>
-            </div>
-        </div>
-        <div>
-           <Friends/>
-        </div>
+    <div className='flex w-screen justify-between H90'>
+      <UserProfile currUser={currUser}/>
+      <AddFriends />
+      
+      <FriendList friendList={friendList}/>
     </div>
   );
 };

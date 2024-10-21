@@ -52,7 +52,8 @@ export default function Calendar() {
     }, [uid, selectedYear, userCalendar]);  
 
     const minimalTheme: ThemeInput = {
-        light: ['#fff', '#c4edde', '#7ac7c4', '#f73859'],
+        // light: ['#fff', '#c4edde', '#7ac7c4', '#f73859'],
+        light: ['#161b22', '#0e4429', '#03803d', '#39d353'],
         dark: ['#161b22', '#0e4429', '#03803d', '#39d353'],
     };
 

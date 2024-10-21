@@ -34,7 +34,7 @@ export default function Main() {
        
     return (
         <div className="bg-gray-300 h-screen border-blue-500">
-           { currUser ? <RoomUser user={currUser}/> : <AddProfile/>}
+           { currUser ? <RoomUser currUser={currUser}/> : <AddProfile/>}
         </div>
     );
 }
