@@ -1,0 +1,27 @@
+/* home --------- */
+#HOME {
+    background: #505ABC url('/src/assits/background.svg') no-repeat;
+    background-position: 50% 50%;
+    background-size: auto 100%;
+    color: #fff;
+}
+
+#HOME .features {
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+}
+#HOME .feature {
+    /* background: #000; */
+    padding: 2% 5% 2% 5%;
+    width: 30%;
+}
+#HOME .feature2 {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+.BORDERGREEN {
+    cursor: pointer;
+    padding: 4px;
+    border-bottom: groove green 1vh;
+}

@@ -47,13 +47,16 @@ export default function AddProfile() {
     }
 
   return (
-    <div>
-        <input type="text" 
-            name="" id="" className='rounded-lg h-8 p-2' 
-            value={userProfileId} 
-            onChange={e => setUserProfileId(e.target.value)}
-        />
-        <button onClick={clickHandler}>Add</button>
+    <div className="H90 bg-gray-200">
+        <div className="w-1/4 bg-blue-200 h-full FLEX flex-col text-lg">
+            <h2>Connect <span className="text-green-600">LC</span> Account</h2>
+            <input type="text" 
+                name="" id="" className='rounded-lg h-8 p-2' 
+                value={userProfileId} 
+                onChange={e => setUserProfileId(e.target.value)}
+                />
+            <button onClick={clickHandler} className="bg-orange-300 rounded-md mt-3 p-2">+ Add</button>
+        </div>
     </div>
   )
 }

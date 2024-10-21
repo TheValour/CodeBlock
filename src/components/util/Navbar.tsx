@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import IMG from '../../assits/mkdir.png'
+import IMG from '../../assits/logo.png'
 import { useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 
@@ -11,8 +11,7 @@ export default function Navbar() {
     <>
       <div className="H10 BG_BLACK border-b text-white flex justify-between p-12 box-border">
           <Link className="FLEX flex-col" to='/'>
-            <img src={IMG} alt="logo" className='size-10'/>
-            <span>Codeblock</span>
+            <img src={IMG} alt="logo" className='size-28'/>
           </Link>
           <div className='flex'>
             {user && user.photoURL ? 
@@ -24,7 +23,7 @@ export default function Navbar() {
                 <Link to='/' onClick={signOutUser} className='ml-6 text-red-400 p-1 rounded-md'>Logout</Link>
               </div>
               : 
-              <Link to='/login'>login</Link>
+              <Link to='/login'>Login</Link>
             }
           </div>
       </div>
