@@ -10,7 +10,7 @@ export default function AddFriends() {
     const [userProfileId, setUserProfileId] = useState('');
     
     function checkUserExists(response : any) {
-        if (response.errors && response.errors.some(error => error.message.includes('user does not exist')) || response.matchedUser === null) {
+        if (response.errors && response.errors.some((error : any) => error.message.includes('user does not exist')) || response.matchedUser === null) {
           console.log('User does not exist.');
           return false; // User not found
         }

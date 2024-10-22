@@ -10,7 +10,7 @@ export default function AddProfile() {
     const [userProfileId, setUserProfileId] = useState('');
     
     function checkUserExists(response : any) {
-        if (response.errors && response.errors.some(error => error.message.includes('user does not exist')) || response.matchedUser === null) {
+        if (response.errors && response.errors.some((error : any) => error.message.includes('user does not exist')) || response.matchedUser === null) {
           console.log('User does not exist.');
           return false; // User not found
         }
@@ -30,7 +30,7 @@ export default function AddProfile() {
             const {name, ranking, username, avatar} = res.data;
 
             if (checkUserExists(res.data) && user && user.uid) {
-                const docRef = await setDoc(doc(db, "users", user.uid), {
+                await setDoc(doc(db, "users", user.uid), {
                     name,
                     ranking,
                     username,

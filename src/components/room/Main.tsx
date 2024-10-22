@@ -1,13 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { doc, getDoc} from "firebase/firestore"; 
+import { doc, getDoc } from "firebase/firestore"; 
 import { db } from "../auth/firebase";
 import RoomUser from "./RoomUser";
 import AddProfile from "./AddProfile";
 
+// Define the structure of currUser
+interface User {
+    name: string;
+    ranking: string;
+    avatar: string;
+    username: string;
+}
+
 export default function Main() {
-    const { user } = useContext(AuthContext );
-    const [currUser, setCurrUser] = useState<object | null>(null);
+    const { user } = useContext(AuthContext);
+    const [currUser, setCurrUser] = useState<User | null>(null);
 
     useEffect(() => {
         async function getUser() {
@@ -17,7 +25,7 @@ export default function Main() {
                     const docSnap = await getDoc(docRef); // Fetch the document snapshot
 
                     if (docSnap.exists()) {
-                        setCurrUser(docSnap.data()); // Set user data in state
+                        setCurrUser(docSnap.data() as User); // Set user data in state
                         console.log("Document data:", docSnap.data());
                     } else {
                         console.log("No such document!");
@@ -31,10 +39,10 @@ export default function Main() {
         }
         getUser();
     }, []); 
-       
+
     return (
         <div className="bg-gray-300 h-screen border-blue-500">
-           { currUser ? <RoomUser currUser={currUser}/> : <AddProfile/>}
+           { currUser ? <RoomUser currUser={currUser}/> : <AddProfile/> }
         </div>
     );
 }
