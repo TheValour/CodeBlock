@@ -11,7 +11,7 @@ export default function Navbar() {
     <>
       <div className="H10 BG_BLACK border-b text-white flex justify-between p-12 box-border">
           <Link className="FLEX flex-col" to='/'>
-            <img src={IMG} alt="logo" className='size-28'/>
+            <img src={IMG} alt="logo" className='size-28 cursor-pointer'/>
           </Link>
           <div className='flex'>
             {user && user.photoURL ? 

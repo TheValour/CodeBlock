@@ -16,9 +16,10 @@ export default function Calendar() {
     };
 
     const findLevel = (count: number) => {
-        if (count > 10) return 3;
-        if (count > 6) return 2;
-        if (count > 1) return 1;
+        if(count > 15 ) return 4;
+        if (count > 8) return 3;
+        if (count >= 4) return 2;
+        if (count >= 1) return 1;
         return 0;
     };
 
@@ -53,8 +54,8 @@ export default function Calendar() {
 
     const minimalTheme: ThemeInput = {
         // light: ['#fff', '#c4edde', '#7ac7c4', '#f73859'],
-        light: ['#161b22', '#0e4429', '#03803d', '#39d353'],
-        dark: ['#161b22', '#0e4429', '#03803d', '#39d353'],
+        light: ['#161b22', '#0e4429', '#03803d', '#39d353', "#d43838"],
+        dark: ['#161b22', '#0e4429', '#03803d', '#39d353', "red"],
     };
 
     const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -69,7 +70,7 @@ export default function Calendar() {
                 <>
                     <ActivityCalendar
                         data={dateVals}
-                        maxLevel={3}
+                        maxLevel={4}
                         blockSize={13}
                         theme={minimalTheme}
                         renderBlock={(block, activity) =>
