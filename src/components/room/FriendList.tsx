@@ -19,13 +19,15 @@ const FriendsList: React.FC<FriendsListProps> = ({ friendList }) => {
 
       {Array.isArray(friendList) && friendList.length > 0 ? (
         friendList.map((friend, index) => (
-          <div className="flex justify-evenly bg-gray-300 my-2 p-2 rounded items-center">
+            <div className="flex justify-evenly bg-gray-300 my-2 p-2 rounded items-center relative">
             <span className="rounded-full bg-yellow-300 size-6 text-center">{index + 1}</span>
             <img src={friend.avatar} alt="profile" className="size-16"/>
             <span key={index} className="w-1/6">{friend.name}</span> 
             <span className="text-blue-600">{Math.round(friend.contestRating)}</span>
             <span className="text-green-600">{friend.contestAttend}</span>
-          </div>
+
+            {(Date.now() - friend.lastUpdate > 0 * 24 * 60 * 60 * 1000) && <span className="absolute right-2"> UP </span>}
+            </div>
         ))
       ) : (
         <li>No friends found.</li>

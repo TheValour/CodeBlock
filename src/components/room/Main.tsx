@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { doc, getDoc } from "firebase/firestore"; 
+import { collection, getDocs } from "firebase/firestore"; 
 import { db } from "../auth/firebase";
 import RoomUser from "./RoomUser";
 import AddProfile from "./AddProfile";
@@ -20,13 +20,15 @@ export default function Main() {
     useEffect(() => {
         async function getUser() {
             try {
-                if (user && user.uid) {
-                    const docRef = doc(db, "users", user.uid); // Reference to the document by UID
-                    const docSnap = await getDoc(docRef); // Fetch the document snapshot
+                if (user?.uid) {
+                    const docRef = collection(db, "users", user.uid, "profiles");
+                    const docSnap = await getDocs(docRef); // Fetch the document snapshot
 
-                    if (docSnap.exists()) {
-                        setCurrUser(docSnap.data() as User); // Set user data in state
-                        console.log("Document data:", docSnap.data());
+                    if (docSnap.size > 0) {
+                        docSnap.forEach(async (doc) => {
+                            const docData = doc.data();
+                            setCurrUser(docData as User);
+                        });
                     } else {
                         console.log("No such document!");
                     }
@@ -38,7 +40,7 @@ export default function Main() {
             }
         }
         getUser();
-    }, []); 
+    }, [user]); // Add user to the dependency array
 
     return (
         <div className="bg-gray-300 h-screen border-blue-500">

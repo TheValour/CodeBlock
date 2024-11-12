@@ -47,7 +47,8 @@ export default function AddFriends() {
                         name: userProfileId,
                         avatar,
                         contestAttend: contestAttend?contestAttend:0,
-                        contestRating : contestRating?contestRating:0 // Set the friendsData in the document
+                        contestRating : contestRating?contestRating:0,
+                        "lastUpdate": Date.now(),
                     });
                                         
                     setUserProfileId('');
@@ -74,6 +75,7 @@ export default function AddFriends() {
             try {
                 await deleteDoc(friendDocRef);
                 console.log(`Friend with userProfileId: ${userProfileId} has been deleted.`);
+                setUserProfileId('');
             } catch (error) {
                 console.error("Error deleting document: ", error);
             }

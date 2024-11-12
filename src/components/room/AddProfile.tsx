@@ -24,13 +24,14 @@ export default function AddProfile() {
         return false;
     }
     async function clickHandler() {
+        console.log(userProfileId);
         try {
             const res = await findUser(userProfileId);
             console.log(res.data);
             const {name, ranking, username, avatar} = res.data;
 
             if (checkUserExists(res.data) && user && user.uid) {
-                await setDoc(doc(db, "users", user.uid), {
+                await setDoc(doc(db, "users", user.uid, "profiles", userProfileId), {
                     name,
                     ranking,
                     username,
@@ -40,7 +41,7 @@ export default function AddProfile() {
                 console.log("Document written with ID: ", user.uid); 
             } else {
                 console.log("User or UID is not defined.");
-            }
+            }            
         } catch (e) {
             console.error("Error adding document: ", e);
         }

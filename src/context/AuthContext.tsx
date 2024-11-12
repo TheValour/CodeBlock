@@ -1,5 +1,5 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../components/auth/firebase";
 
 // Define the User type
@@ -34,14 +34,23 @@ export const AuthContext = createContext<AUTHContextType>(defaultValue);
 export function AuthContextProvider({ children }: AUTHContextProviderProps) {
 
     const [user, setUser] = useState<User | null>(null);
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                const { displayName, email, photoURL, uid } = currentUser;
+                setUser({ displayName, email, photoURL, uid });
+            } else {
+                setUser(null);
+            }
+        });
 
+        return () => unsubscribe();
+    }, []);
+    
     // Sign-out function using Firebase authentication
     const signOutUser = async () =>{
         try{
             await signOut(auth);
-            localStorage.removeItem("email");
-            localStorage.removeItem("password");
-            localStorage.removeItem("user");
             setUser(null);
         }catch (error) {
             throw error;
@@ -62,9 +71,6 @@ export function AuthContextProvider({ children }: AUTHContextProviderProps) {
             };
             setUser(newUser);  
             // Persist user in localStorage
-            localStorage.setItem("email", email);
-            localStorage.setItem("password", password);
-            localStorage.setItem("user", JSON.stringify(newUser)); 
         } catch (error: any) {
             console.error("Error during sign-in:", error.code, error.message, error);
             throw error;  // Throw the error if sign-in fails

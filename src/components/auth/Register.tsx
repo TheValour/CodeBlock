@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import {auth, storage} from './firebase.ts'
+import {auth} from './firebase.ts'
+import { createClient } from "@supabase/supabase-js";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage";
-import { v4 as uuidv4 } from 'uuid';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+// const supabase = createClient("https://kydeedknficgzzfvfiiy.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5ZGVlZGtuZmljZ3p6ZnZmaWl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg3NTU4NzEsImV4cCI6MjA0NDMzMTg3MX0.6mWS5SAuAXZ56LKdcs1lwN-G7rbMwjyncOEvUKm0GwM");
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,13 +31,17 @@ const Register = () => {
     e.preventDefault();
     
     try {
-      const imageRef = storageRef(storage, uuidv4());
-      const snapshot = await uploadBytes(imageRef, image);
-      const url = await getDownloadURL(snapshot.ref);
-      
+      // const imageName = Date.now();
+      const uniqueImageName = `${Date.now()}-${image.name}`;
+      const res = await supabase.storage.from('CODEBLOCK').upload(`public/${uniqueImageName}`, image);
+      console.log(res);
+      const { data } = supabase.storage.from('CODEBLOCK').getPublicUrl(`public/${uniqueImageName}`);
+      const publicURL = data.publicUrl;
+      console.log(publicURL);
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       if(auth.currentUser) {
-        await updateProfile(auth.currentUser, {displayName: username, photoURL : url})
+        await updateProfile(auth.currentUser, {displayName: username, photoURL : publicURL})
         const user = userCredential.user;
         console.log("User signed in:", user);
         handleSuccess('User successfully register');
