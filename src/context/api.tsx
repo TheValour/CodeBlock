@@ -10,6 +10,7 @@ type APIContextType = {
   userContests: (user: string) => Promise<AxiosResponse<any>>;
   userCalendar: (user: string | undefined, year : string) => Promise<AxiosResponse<any>>;
   userQuestions: (user: string | undefined) => Promise<AxiosResponse<any>>;
+  checkUserExists: (response : any) => boolean;
   uid: string | null;
   setUid: Dispatch<SetStateAction<string | null>>
 };
@@ -19,6 +20,7 @@ const defaultValue: APIContextType = {
   userContests: async () => { throw new Error('Not define'); },
   userCalendar: async () => { throw new Error('Not define'); },
   userQuestions: async () => { throw new Error('Not define'); },
+  checkUserExists: () => { throw new Error('Not define'); },
   uid : '',
   setUid: ()=>{}
 };
@@ -51,8 +53,23 @@ export function APIContextProvider({ children }: APIContextProviderProps) {
     return response;
   };
 
+  const checkUserExists = (response : any) => {
+    if (response.errors && response.errors.some((error : any) => error.message.includes('user does not exist')) || response.matchedUser === null) {
+      console.log('User does not exist.');
+      return false; // User not found
+    }
+  
+    if (response.username) {
+      console.log('User found:', response.username);
+      return true; // User found
+    }
+  
+    console.log('Unknown response.');
+    return false;
+  }
+
   return (
-    <APIContext.Provider value={{ findUser, uid, userContests, userCalendar, userQuestions, setUid}}>
+    <APIContext.Provider value={{ findUser, uid, userContests, userCalendar, userQuestions, setUid, checkUserExists}}>
       {children}
     </APIContext.Provider>
   );

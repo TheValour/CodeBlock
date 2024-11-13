@@ -6,36 +6,26 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function AddProfile() {
     const { user } = useContext(AuthContext);
-    const { findUser } = useContext(APIContext);
+    const { findUser, checkUserExists } = useContext(APIContext);
     const [userProfileId, setUserProfileId] = useState('');
     
-    function checkUserExists(response : any) {
-        if (response.errors && response.errors.some((error : any) => error.message.includes('user does not exist')) || response.matchedUser === null) {
-          console.log('User does not exist.');
-          return false; // User not found
-        }
-      
-        if (response.username) {
-          console.log('User found:', response.username);
-          return true; // User found
-        }
-      
-        console.log('Unknown response.');
-        return false;
-    }
     async function clickHandler() {
         console.log(userProfileId);
         try {
             const res = await findUser(userProfileId);
             console.log(res.data);
-            const {name, ranking, username, avatar} = res.data;
+            const {name, ranking, username, avatar, gitHub, country, linkediIN, website} = res.data;
 
             if (checkUserExists(res.data) && user && user.uid) {
                 await setDoc(doc(db, "users", user.uid, "profiles", userProfileId), {
                     name,
                     ranking,
                     username,
-                    avatar
+                    avatar,
+                    gitHub,
+                    country,
+                    linkediIN,
+                    website,
                 });
                 
                 console.log("Document written with ID: ", user.uid); 

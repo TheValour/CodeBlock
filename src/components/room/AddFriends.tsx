@@ -6,23 +6,9 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function AddFriends() {
     const { user } = useContext(AuthContext);
-    const { findUser, userContests } = useContext(APIContext);
+    const { findUser, userContests, checkUserExists } = useContext(APIContext);
     const [userProfileId, setUserProfileId] = useState('');
     
-    function checkUserExists(response : any) {
-        if (response.errors && response.errors.some((error : any) => error.message.includes('user does not exist')) || response.matchedUser === null) {
-          console.log('User does not exist.');
-          return false; // User not found
-        }
-      
-        if (response.username) {
-          console.log('User found:', response.username);
-          return true; // User found
-        }
-      
-        console.log('Unknown response.');
-        return false;
-    }
     async function clickHandler() {
         try {
             const res = await findUser(userProfileId);
@@ -67,6 +53,7 @@ export default function AddFriends() {
             return false; // Return false on error
         }
     }
+    
     async function deleteFriend() {
         if (user && user.uid) {
             const userFriendsRef = collection(db, "userfriend", user.uid, "friends");
