@@ -3,6 +3,8 @@ import { db } from "../auth/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { APIContext } from "../../context/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWrench } from "@fortawesome/free-solid-svg-icons";
 
 interface FriendsListProps {
   friendList: DocumentData[]; // Define the prop type as an array of DocumentData
@@ -76,7 +78,9 @@ const FriendsList: React.FC<FriendsListProps> = ({ friendList }) => {
             <span className="text-blue-600">{Math.round(friend.contestRating)}</span>
             <span className="text-green-600">{friend.contestAttend}</span>
 
-            {(Date.now() - friend.lastUpdate > 0 * 24 * 60 * 60 * 1000) && <span className="absolute right-2 cursor-pointer" onClick={() => clickHandler(friend.name)}> UP </span>}
+            {(Date.now() - friend.lastUpdate > 1 * 24 * 60 * 60 * 1000) && 
+              <FontAwesomeIcon icon={faWrench} className="absolute right-2 cursor-pointer" onClick={() => clickHandler(friend.name)}/>
+            }
             </div>
         ))
       ) : (

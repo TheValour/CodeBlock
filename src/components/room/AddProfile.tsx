@@ -14,7 +14,7 @@ export default function AddProfile() {
         try {
             const res = await findUser(userProfileId);
             console.log(res.data);
-            const {name, ranking, username, avatar, gitHub, country, linkediIN, website} = res.data;
+            const {name, ranking, username, avatar, gitHub, country, linkedIN, website, twitter} = res.data;
 
             if (checkUserExists(res.data) && user && user.uid) {
                 await setDoc(doc(db, "users", user.uid, "profiles", userProfileId), {
@@ -22,10 +22,11 @@ export default function AddProfile() {
                     ranking,
                     username,
                     avatar,
-                    gitHub,
                     country,
-                    linkediIN,
-                    website,
+                    gitHub,
+                    twitter,
+                    linkedIN,
+                    website: website.length > 0 ? website[0] : null,
                 });
                 
                 console.log("Document written with ID: ", user.uid); 
