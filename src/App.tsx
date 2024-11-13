@@ -6,10 +6,12 @@ import Navbar from './components/util/Navbar'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Main from './components/room/Main'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   return (
     <div id='APP'>
+      <Analytics/>
       <Routes>
         <Route path='/' element={<Navbar/>}>
           <Route path='/' element={<Home/>}/>
