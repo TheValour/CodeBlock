@@ -11,6 +11,11 @@ interface User {
     ranking: string;
     avatar: string;
     username: string;
+    country: string | null;
+    gitHub: string | null;
+    twitter: string | null;
+    linkedIN: string | null;
+    website: string | null;
 }
 
 export default function Main() {
