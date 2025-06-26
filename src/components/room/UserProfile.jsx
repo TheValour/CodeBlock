@@ -5,21 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub, faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-type RoomUserProps = {
-  currUser: {
-    name: string;
-    ranking: string; 
-    avatar: string; 
-    username: string; 
-    country: string | null;
-    gitHub: string | null;
-    twitter: string | null;
-    linkedIN: string | null;
-    website: string | null;
-  };
-}
-
-const UserProfile: React.FC<RoomUserProps> = ({ currUser }) => {
+const UserProfile = ({ currUser }) => {
   const response = getCountryCode(currUser.country || "India") || "IN"; 
   
   return (

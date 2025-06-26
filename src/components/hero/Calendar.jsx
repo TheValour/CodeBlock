@@ -1,21 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { APIContext } from "../../context/api";
-import ActivityCalendar, { ThemeInput } from "react-activity-calendar";
+import ActivityCalendar from "react-activity-calendar";
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 
 export default function Calendar() {
     const { uid, userCalendar } = useContext(APIContext);
-    const [cal, setCal] = useState<any>(null);  
-    const [dateVals, setDateVals] = useState<any[]>([]);
-    const [selectedYear, setSelectedYear] = useState<string>("2024"); 
+    const [cal, setCal] = useState(null);  
+    const [dateVals, setDateVals] = useState([]);
+    const [selectedYear, setSelectedYear] = useState("2024"); 
 
     // Helper functions
-    const convertToDate = (timestamp: number) => {
+    const convertToDate = (timestamp) => {
         return new Date(timestamp * 1000).toISOString().split('T')[0];
     };
 
-    const findLevel = (count: number) => {
+    const findLevel = (count) => {
         if(count > 15 ) return 4;
         if (count > 8) return 3;
         if (count >= 4) return 2;
@@ -52,13 +52,13 @@ export default function Calendar() {
         }
     }, [uid, selectedYear, userCalendar]);  
 
-    const minimalTheme: ThemeInput = {
+    const minimalTheme = {
         // light: ['#fff', '#c4edde', '#7ac7c4', '#f73859'],
         light: ['#161b22', '#0e4429', '#03803d', '#39d353', "#d43838"],
         dark: ['#161b22', '#0e4429', '#03803d', '#39d353', "red"],
     };
 
-    const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleYearChange = (e) => {
         setSelectedYear(e.target.value); 
     };
 

@@ -1,39 +1,19 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../components/auth/firebase";
 
-// Define the User type
-type User = {
-    displayName: string | null;  
-    photoURL: string | null;     
-    email: string | null;
-    uid: string | null;
-};
-
-// Define the context type with the User type
-type AUTHContextType = {
-    user: User | null;  
-    setUser: Dispatch<SetStateAction<User | null>>;  
-    signIn: (email: string, password: string) => Promise<void>;
-    signOutUser: () => Promise<void>; 
-};
-
-const defaultValue: AUTHContextType = {
+const defaultValue = {
     user: null,
     setUser: () => {},
     signIn: async () => {},
     signOutUser: async () => {} 
 };
 
-type AUTHContextProviderProps = {
-    children: ReactNode;
-};
+export const AuthContext = createContext(defaultValue);
 
-export const AuthContext = createContext<AUTHContextType>(defaultValue);
+export function AuthContextProvider({ children }) {
 
-export function AuthContextProvider({ children }: AUTHContextProviderProps) {
-
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState(null);
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
@@ -57,7 +37,7 @@ export function AuthContextProvider({ children }: AUTHContextProviderProps) {
         }
     }
     // Sign-in function using Firebase authentication
-    const signIn = async (email: string, password: string) => {
+    const signIn = async (email, password) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             // console.log("hello", userCredential.user.uid)
@@ -71,7 +51,7 @@ export function AuthContextProvider({ children }: AUTHContextProviderProps) {
             };
             setUser(newUser);  
             // Persist user in localStorage
-        } catch (error: any) {
+        } catch (error) {
             console.error("Error during sign-in:", error.code, error.message, error);
             throw error;  // Throw the error if sign-in fails
         }

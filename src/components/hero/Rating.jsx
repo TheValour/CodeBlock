@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { APIContext } from "../../context/api";
-import { ContestProfile } from "../../constant/type";
 
 export default function Rating() {
     const  {uid, userContests} = useContext(APIContext);
-    const [contest, setContest] = useState<ContestProfile>({} as ContestProfile);
+    const [contest, setContest] = useState({});
 
     useEffect(() => {
         const fetchUser = async () => {

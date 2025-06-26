@@ -1,12 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import { APIContextProvider } from './context/api.tsx'
-import { AuthContextProvider } from './context/AuthContext.tsx'
+import { APIContextProvider } from './context/api.jsx'
+import { AuthContextProvider } from './context/AuthContext.jsx'
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthContextProvider>
       <APIContextProvider>

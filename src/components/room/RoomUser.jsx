@@ -1,28 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AddFriends from './AddFriends';
 import { AuthContext } from '../../context/AuthContext';
-import {collection, DocumentData, getDocs} from 'firebase/firestore';
+import {collection, getDocs} from 'firebase/firestore';
 import { db } from '../auth/firebase';
 import UserProfile from './UserProfile';
 import FriendList from './FriendList';
 
-type RoomUserProps = {
-  currUser: {
-    name: string;
-    ranking: string; 
-    avatar: string; 
-    username: string; 
-    country: string | null;
-    gitHub: string | null;
-    twitter: string | null;
-    linkedIN: string | null;
-    website: string | null;
-  };
-}
-
-const RoomUser: React.FC<RoomUserProps> = ({ currUser }) => {
+const RoomUser = ({ currUser }) => {
   // console.log(user)
-  const [friendList, setFriendList] = useState<DocumentData[]>([]);
+  const [friendList, setFriendList] = useState([]);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {

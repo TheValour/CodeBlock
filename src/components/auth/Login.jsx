@@ -1,21 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext.js";
+import { AuthContext } from "../../context/AuthContext.jsx";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
-  const [userMail, setUserMail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [userMail, setUserMail] = useState('');
+  const [password, setPassword] = useState('');
   const {user, signIn} = useContext(AuthContext);
   const navigate = useNavigate();
   
-  const handleError = (err : any) =>
+  const handleError = (err) =>
     toast.error(err, {
       position: "top-right",
   });
 
-  const handleSubmit = async (e : any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(userMail, password);
     try {
@@ -23,7 +23,7 @@ export default function Login() {
       if(user) {
         navigate('/main');
       }      
-    } catch (error: any) {
+    } catch (error) {
       handleError("Incorrect email or password")
       console.error("Error during sign-in:", error.code);
     }

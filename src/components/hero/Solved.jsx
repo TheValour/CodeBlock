@@ -1,21 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { APIContext } from "../../context/api";
 
-// Define a type for the question structure
-type Question = {
-  solvedProblem: number;
-  easySolved: number;
-  mediumSolved: number;
-  hardSolved: number;
-  totalSubmissionNum: any,
-  acSubmissionNum: any
-}
-
 export default function Solved() {
   const { uid, userQuestions } = useContext(APIContext); 
-  const [question, setQuestion] = useState<Question | null>(null); 
-  const [loading, setLoading] = useState<boolean>(true); 
-  const [error, setError] = useState<string | null>(null); 
+  const [question, setQuestion] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchUser = async () => {

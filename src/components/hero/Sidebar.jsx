@@ -1,10 +1,4 @@
-import { User } from '../../constant/type'
-
-type SidebarProps = {
-  user: User; 
-}
-
-export default function Sidebar({ user }: SidebarProps) {
+export default function Sidebar({ user }) {
   return (
     <div className="h-screen BGGRAY text-white w-1/5 FLEX flex-col">
       <div>

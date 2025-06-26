@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { APIContext } from "../context/api";
-import { User } from "../constant/type";
 import Sidebar from "./hero/Sidebar";
 import Hero from "./hero/Hero";
 
 function Leetcode() {
   // const navigate = useNavigate();
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState({});
   const {uid} = useParams();
   const  {findUser, setUid} = useContext(APIContext);
   setUid(uid?uid:"");
@@ -37,4 +36,3 @@ function Leetcode() {
 }
   
 export default Leetcode;
-  

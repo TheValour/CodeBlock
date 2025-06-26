@@ -1,4 +1,4 @@
-import { doc, DocumentData, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../auth/firebase";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -6,24 +6,13 @@ import { APIContext } from "../../context/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWrench } from "@fortawesome/free-solid-svg-icons";
 
-interface FriendsListProps {
-  friendList: DocumentData[]; // Define the prop type as an array of DocumentData
-}
-interface User {  
-  name: string;
-  avatar: string;
-  contestRating: number;
-  contestAttend: number;
-  lastUpdate: number;
-}
-
-const FriendsList: React.FC<FriendsListProps> = ({ friendList }) => {
+const FriendsList = ({ friendList }) => {
   friendList = friendList.sort((a, b) => b.contestRating - a.contestRating);
   
   const { user } = useContext(AuthContext);
   const { findUser, userContests, checkUserExists } = useContext(APIContext);
   
-  async function updateFriend(userUid: string, friendId: string, updatedData: Partial<User>) {
+  async function updateFriend(userUid, friendId, updatedData) {
     try {
         const friendDocRef = doc(db, "userfriend", userUid, "friends", friendId);
         await updateDoc(friendDocRef, updatedData);
@@ -33,7 +22,7 @@ const FriendsList: React.FC<FriendsListProps> = ({ friendList }) => {
     }
   }
 
-  async function clickHandler(friendId: string) { 
+  async function clickHandler(friendId) { 
     try {
       const res = await findUser(friendId);
       const {avatar} = res.data;
@@ -91,4 +80,3 @@ const FriendsList: React.FC<FriendsListProps> = ({ friendList }) => {
 };
   
 export default FriendsList;
-  

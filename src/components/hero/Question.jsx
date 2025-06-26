@@ -5,9 +5,9 @@ import { axisClasses } from '@mui/x-charts';
 
 export default function Question() {
     const { uid, userCalendar } = useContext(APIContext);
-    const [cal, setCal] = useState<any>(null);
-    const [value, setValue] = useState<string>('1');
-    const [myData, setMyData] = useState<number[]>([]);
+    const [cal, setCal] = useState(null);
+    const [value, setValue] = useState('1');
+    const [myData, setMyData] = useState([]);
 
     // Fetch calendar data when `uid` changes
     useEffect(() => {

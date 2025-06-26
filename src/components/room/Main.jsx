@@ -5,22 +5,9 @@ import { db } from "../auth/firebase";
 import RoomUser from "./RoomUser";
 import AddProfile from "./AddProfile";
 
-// Define the structure of currUser
-interface User {
-    name: string;
-    ranking: string;
-    avatar: string;
-    username: string;
-    country: string | null;
-    gitHub: string | null;
-    twitter: string | null;
-    linkedIN: string | null;
-    website: string | null;
-}
-
 export default function Main() {
     const { user } = useContext(AuthContext);
-    const [currUser, setCurrUser] = useState<User | null>(null);
+    const [currUser, setCurrUser] = useState(null);
 
     useEffect(() => {
         async function getUser() {
@@ -32,7 +19,7 @@ export default function Main() {
                     if (docSnap.size > 0) {
                         docSnap.forEach(async (doc) => {
                             const docData = doc.data();
-                            setCurrUser(docData as User);
+                            setCurrUser(docData);
                         });
                     } else {
                         console.log("No such document!");

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import {auth} from './firebase.ts'
+import {auth} from './firebase.js'
 import { createClient } from "@supabase/supabase-js";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
@@ -12,21 +12,21 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 
 const Register = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [username, setUser] = useState<string>('');
-  const [image, setImage] = useState<any | null>();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUser] = useState('');
+  const [image, setImage] = useState();
 
-  const handleError = (err : any) =>
+  const handleError = (err) =>
     toast.error(err, {
       position: "top-right",
   });
-  const handleSuccess = (msg : any) =>
+  const handleSuccess = (msg) =>
     toast.success(msg, {
       position: "top-right",
   });
 
-  const handleSubmit = async (e : any) => {
+  const handleSubmit = async (e) => {
     console.log(email, password);
     e.preventDefault();
     
@@ -49,7 +49,7 @@ const Register = () => {
           navigate("/login");
         }, 2000);
       }
-    } catch (error: any) {
+    } catch (error) {
       handleError(error.code)
       console.error("Error during sign-in:\n", error.code);
     }
@@ -93,7 +93,7 @@ const Register = () => {
             <input type="file" autoComplete="current-image"
               name="tags" id="image_input"
               accept=".jpg, .jpeg, .png"
-              onChange={(e: any) => setImage(e.target.files[0])}
+              onChange={(e) => setImage(e.target.files[0])}
               className='bg-slate-100 p-2 input-class' required
             /><br/> 
           </div>

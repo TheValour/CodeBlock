@@ -60,7 +60,7 @@ const countryMap = {
     "Bulgaria": "BG",
 };
 
-function getCountryCode(countryName : String) {
+function getCountryCode(countryName) {
     for (const [name, code] of Object.entries(countryMap)) {
         if (name === countryName) {
             return code;
@@ -71,7 +71,7 @@ function getCountryCode(countryName : String) {
     }
 }
 
-function getCountryName(countryCode : String) {
+function getCountryName(countryCode) {
     for (const [name, code] of Object.entries(countryMap)) {
         if (code === countryCode) {
             return name;
