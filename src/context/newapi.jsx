@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import axios from 'axios';
 
 // API base URL
-// const API = 'https://alfa-leetcode-api.onrender.com';
-const API = 'https://leetcode-api-pied.vercel.app';
+const API = 'https://alfa-leetcode-api.onrender.com';
+// const API = 'https://leetcode-api-pied.vercel.app';
 
 const defaultValue = {
   findUser: async () => { throw new Error('Not define'); },
@@ -22,7 +22,7 @@ export function APIContextProvider({ children }) {
   const [uid, setUid] = useState("hello");
 
   const findUser = async (user) => {
-    const response = await axios.get(`${API}/user/${user}`); 
+    const response = await axios.get(`${API}/${user}`); 
     console.log("API Response:", response.data); // Log the response data for debugging
     return response;
   };

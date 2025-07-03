@@ -8,7 +8,7 @@ export default function Calendar() {
     const { uid, userCalendar } = useContext(APIContext);
     const [cal, setCal] = useState(null);  
     const [dateVals, setDateVals] = useState([]);
-    const [selectedYear, setSelectedYear] = useState("2024"); 
+    const [selectedYear, setSelectedYear] = useState("2025"); 
 
     // Helper functions
     const convertToDate = (timestamp) => {
@@ -91,6 +91,7 @@ export default function Calendar() {
                 value={selectedYear}
                 onChange={handleYearChange}
             >
+                <option value="2025">2025</option>
                 <option value="2024">2024</option>
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
